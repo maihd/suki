@@ -27,7 +27,15 @@ local function CloneModule(module, conversionDefines)
 end
 
 -- main module
-Suki = {}
+Suki = {
+    Buffer                  = love.Data,
+    Object                  = love.Object,
+    Variant                 = love.Variant,
+    GetVersion              = love.getVersion,
+    IsVersionCompatible     = love.isVersionCompatible,
+    HasDeprecationOutput    = love.hasDeprecationOutput,
+    SetDeprecationOutput    = love.setDeprecationOutput,
+}
 
 -- handlers
 Suki.handlers = {}
@@ -325,12 +333,9 @@ local touchModule = {
 Suki.Touch = CloneModule(love.touch, touchModule)
 
 -- data module
-local dataModule = {
-    GetPackedSize   = 'getPackedSize',
-    NewByteData     = 'newByteData',
-    NewDataView     = 'newDataView',
-}
-Suki.Buffer = CloneModule(love.data, dataModule)
+Suki.Buffer.NewByteData     = love.data.newByteData
+Suki.Buffer.NewBufferView   = love.data.newDataView
+Suki.Buffer.GetPackedSize   = love.data.getPackedSize
 
 -- font module
 local fontModule = {
@@ -477,9 +482,34 @@ function Suki.Run()
 						return a or 0
 					end
                 end
-                
-                if Suki.handlers[name] then
-                    Suki.handlers(a, b, c, d, e, f)
+
+                local handler
+                if name == "keypressed" then
+                    handler = Suki.OnKeyDown
+                elseif name == "keyreleased" then
+                    handler = Suki.OnKeyUp
+                elseif name == "textedited" then
+                    handler = Suki.OnTextEdited
+                elseif name == "textinput" then
+                    handler = Suki.OnTextInput
+                elseif name == "mousemoved" then
+                    handler = Suki.OnMouseMoved
+                elseif name == "mousepressed" then
+                    handler = Suki.OnMouseDown
+                elseif name == "mouserelease" then
+                    handler = Suki.OnMouseUp
+                elseif name == "wheelmoved" then
+                    handler = Suki.OnMouseWheel
+                elseif name == "touchmoved" then
+                    handler = Suki.OnTouchMoved
+                elseif name == "touchpressed" then
+                    handler = Suki.OnTouchBegan
+                elseif name == "touchreleased" then
+                    handler = Suki.OnTouchEnded
+                end
+
+                if handler then
+                    handler(a, b, c, d, e, f)
                 end
 			end
 		end
