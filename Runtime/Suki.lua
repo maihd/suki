@@ -26,9 +26,11 @@ local function CloneModule(module, conversionDefines)
     return newModule
 end
 
+-- General module
+--Buffer = Data
+
 -- main module
 Suki = {
-    Buffer                  = love.Data,
     Object                  = love.Object,
     Variant                 = love.Variant,
     GetVersion              = love.getVersion,
@@ -42,7 +44,12 @@ Suki.handlers = {}
 
 -- Arguments
 Suki.Arguments = CloneModule(love.arg, {
-    ParseGameArguments = "parseGameArguments"
+    GetLow              = "getLow",
+    Options             = "options",
+    OptionIndices       = "optionIndices",
+    ParseOption         = "parseOption",
+    ParseOptions        = "parseOptions",
+    ParseGameArguments  = "parseGameArguments",
 });
 
 -- graphics module
@@ -213,7 +220,7 @@ Suki.FileSystem = CloneModule(love.filesystem, {
     GetUserDirectory        = "getUserDirectory",
     GetWorkingDirectory     = "getWorkingDirectory",
     Init                    = "init",
-    SsFused                 = "isFused",
+    IsFused                 = "isFused",
     Lines                   = "lines",
     Load                    = "load",
     Mount                   = "mount",
@@ -229,6 +236,7 @@ Suki.FileSystem = CloneModule(love.filesystem, {
     Unmount                 = "unmount",
     Write                   = "write",
 });
+Suki.FileSystem.Exists = Suki.FileSystem.GetInfo;
 
 -- audio
 local audioModule = {
@@ -333,6 +341,7 @@ local touchModule = {
 Suki.Touch = CloneModule(love.touch, touchModule)
 
 -- data module
+Suki.Buffer                 = {}
 Suki.Buffer.NewByteData     = love.data.newByteData
 Suki.Buffer.NewBufferView   = love.data.newDataView
 Suki.Buffer.GetPackedSize   = love.data.getPackedSize
@@ -451,17 +460,22 @@ local physicsModule = {
 }
 Suki.Physics = CloneModule(love.physics, physicsModule)
 
--- Config
-function love.config(config)
-    if Suki.Config then
-        Suki.Config(config)
-    end
-end
-
 -- customable engine loop
 function Suki.Run()
+    local args          = Suki.Arguments.ParseGameArguments(arg);
+    local workingFolder = Suki.FileSystem.GetWorkingDirectory();
+    local targetFolder  = args[1] or "Template"
+
+    local fullPathTargetFolder = workingFolder .. "/" .. targetFolder
+    local targetMainFile = fullPathTargetFolder .. "/main.lua"
+    pcall(function () dofile(targetMainFile) end)
+
+    --Suki.FileSystem.GetWorkingDirectory = function ()
+    --    return fullPathTargetFolder;
+    --end
+
     if Suki.Load then 
-        Suki.Load(Suki.Arguments.ParseGameArguments(arg), arg) 
+        Suki.Load(args, arg) 
     end
 
     -- We don't want the first frame's dt to include time taken by Suki.Load.

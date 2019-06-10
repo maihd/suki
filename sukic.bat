@@ -1,3 +1,3 @@
 @echo off
 
-bin-win64\\sukic.exe %1 %2 %3 %4 %5 %6 %7 %8
+Binary\\Win64\\sukic.exe ./Runtime %1 %2 %3 %4 %5 %6 %7 %8
