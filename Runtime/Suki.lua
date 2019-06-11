@@ -467,7 +467,10 @@ local function LoadConfig(targetPath)
     -- Validate config
     config = config or {}
 
-    Suki.FileSystem.SetIdentity(config.identity)
+    -- Apply general config
+    if config.identity then
+        Suki.FileSystem.SetIdentity(config.identity)
+    end
     --Suki.FileSystem.
 
     -- Apply window config
