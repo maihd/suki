@@ -28,22 +28,11 @@ end
 
 -- General module
 --Buffer = Data
-
--- main module
-Suki = {
-    Object                  = love.Object,
-    Variant                 = love.Variant,
-    GetVersion              = love.getVersion,
-    IsVersionCompatible     = love.isVersionCompatible,
-    HasDeprecationOutput    = love.hasDeprecationOutput,
-    SetDeprecationOutput    = love.setDeprecationOutput,
-}
-
--- handlers
-Suki.handlers = {}
+Object  = love.Object
+Variant = love.Variant
 
 -- Arguments
-Suki.Arguments = CloneModule(love.arg, {
+Arguments = CloneModule(love.arg, {
     GetLow              = "getLow",
     Options             = "options",
     OptionIndices       = "optionIndices",
@@ -170,7 +159,7 @@ local graphicsModule = {
     SetStencilTest          = "setStencilTest",  
     SetWireframe            = "setWireframe",  
 }
-Suki.Graphics = CloneModule(love.graphics, graphicsModule)
+Graphics = CloneModule(love.graphics, graphicsModule)
 
 -- math module
 local mathModule = {
@@ -189,21 +178,21 @@ local mathModule = {
     RandomNormal        = "randomNormal",
     SetSandomSeed       = "setRandomSeed",
 }
-Suki.Math = CloneModule(love.math, mathModule)
+Math = CloneModule(love.math, mathModule)
 
 -- video module
-Suki.Video = CloneModule(love.video, {
+Video = CloneModule(love.video, {
     NewVideoStream = "newVideoStream",
 })
 
 -- sound module
-Suki.Sound = CloneModule(love.sound, {
+Sound = CloneModule(love.sound, {
     NewDecoder      = "newDecoder", 
     NewSoundData    = "newSoundData",
 });
 
 -- filesystem module
-Suki.FileSystem = CloneModule(love.filesystem, {
+FileSystem = CloneModule(love.filesystem, {
     Append                  = "append",
     AreSymlinksEnabled      = "areSymlinksEnabled",
     CreateDirectory         = "createDirectory",
@@ -236,7 +225,7 @@ Suki.FileSystem = CloneModule(love.filesystem, {
     Unmount                 = "unmount",
     Write                   = "write",
 });
-Suki.FileSystem.Exists = Suki.FileSystem.GetInfo;
+FileSystem.Exists = FileSystem.GetInfo;
 
 -- audio
 local audioModule = {
@@ -271,10 +260,10 @@ local audioModule = {
     SetVelocity             = "setVelocity",
     SetVolume               = "setVolume",
 }
-Suki.Audio = CloneModule(love.audio, audioModule)
+Audio = CloneModule(love.audio, audioModule)
 
 -- event module
-Suki.Event = CloneModule(love.event, {
+Event = CloneModule(love.event, {
     Pump    = "pump",
     Poll    = "poll",
     Clear   = "clear",
@@ -305,7 +294,7 @@ local mouseModule = {
     SetX                  = "setX",
     SetY                  = "setY",
 }
-Suki.Mouse = CloneModule(love.mouse, mouseModule)
+Mouse = CloneModule(love.mouse, mouseModule)
 
 -- keyboard module
 local keyboardModule = {
@@ -318,7 +307,7 @@ local keyboardModule = {
     SetKeyRepeat          = "setKeyRepeat",
     SetTextTnput          = "setTextInput",
 }
-Suki.Keyboard = CloneModule(love.keyboard, keyboardModule)
+Keyboard = CloneModule(love.keyboard, keyboardModule)
 
 -- joystick module
 local joystickModule = {
@@ -330,7 +319,7 @@ local joystickModule = {
     SaveGamepadMappings     = "saveGamepadMappings",
     SetGamepadMapping       = "setGamepadMapping",
 }
-Suki.Joystick = CloneModule(love.joystick, joystickModule)
+Joystick = CloneModule(love.joystick, joystickModule)
 
 -- touch module
 local touchModule = {
@@ -338,13 +327,13 @@ local touchModule = {
     GetPressure   = "getPressure",
     GetTouches    = "getTouches",
 }
-Suki.Touch = CloneModule(love.touch, touchModule)
+Touch = CloneModule(love.touch, touchModule)
 
 -- data module
-Suki.Buffer                 = {}
-Suki.Buffer.NewByteData     = love.data.newByteData
-Suki.Buffer.NewBufferView   = love.data.newDataView
-Suki.Buffer.GetPackedSize   = love.data.getPackedSize
+Buffer                 = {}
+Buffer.NewByteData     = love.data.newByteData
+Buffer.NewBufferView   = love.data.newDataView
+Buffer.GetPackedSize   = love.data.getPackedSize
 
 -- font module
 local fontModule = {
@@ -353,7 +342,7 @@ local fontModule = {
     NewTtfRasterizer      = "newTrueTypeRasterizer",  
     NewBmfontRasterizer   = "newBMFontRasterizer",  
 }
-Suki.Font = CloneModule(love.font, fontModule)
+Font = CloneModule(love.font, fontModule)
 
 -- image module
 local imageModule = {
@@ -361,7 +350,7 @@ local imageModule = {
     NewCompressedData     = "newCompressedData",  
     NewImageData          = "newImageData",  
 }
-Suki.Image = CloneModule(love.image, imageModule)
+Image = CloneModule(love.image, imageModule)
 
 -- Timer module
 local timerModule = {
@@ -373,7 +362,7 @@ local timerModule = {
     GetFps            = "getFPS",
     GetTime           = "getTime",
 }
-Suki.Timer = CloneModule(love.timer, timerModule)
+Time = CloneModule(love.timer, timerModule)
 
 -- window module
 local windowModule = {
@@ -410,7 +399,7 @@ local windowModule = {
     ToPixels                = "toPixels",  
     UpdateMode              = "updateMode",  
 }
-Suki.Window = CloneModule(love.window, windowModule)
+Window = CloneModule(love.window, windowModule)
 
 -- system module
 local systemModule = {
@@ -423,7 +412,12 @@ local systemModule = {
     OpenUrl               = "openURL",
     SetClipboardText      = "setClipboardText",
 }
-Suki.System = CloneModule(love.system, systemModule)
+System = CloneModule(love.system, systemModule)
+
+System.GetVersion           = love.getVersion
+System.IsVersionCompatible  = love.isVersionCompatible
+System.HasDeprecationOutput = love.hasDeprecationOutput
+System.SetDeprecationOutput = love.setDeprecationOutput
 
 -- thread module
 local threadModule = {
@@ -431,7 +425,7 @@ local threadModule = {
     NewChannel   = "newChannel",
     NewThread    = "newThread",
 }
-Suki.Thread = CloneModule(love.thread, threadModule)
+Thread = CloneModule(love.thread, threadModule)
 
 -- physics module
 local physicsModule = {
@@ -458,7 +452,7 @@ local physicsModule = {
     NewWorld              = "newWorld",
     SetMeter              = "setMeter",
 }
-Suki.Physics = CloneModule(love.physics, physicsModule)
+Physics = CloneModule(love.physics, physicsModule)
 
 local function LoadConfig(targetPath)
     local targetConfigFile = targetPath .. "/config.lua"
@@ -469,19 +463,21 @@ local function LoadConfig(targetPath)
 
     -- Apply general config
     if config.identity then
-        Suki.FileSystem.SetIdentity(config.identity)
+        FileSystem.SetIdentity(config.identity)
     end
-    --Suki.FileSystem.
 
     -- Apply window config
     local windowConfig = config.window or {}
-    Suki.Window.SetTitle(windowConfig.title or "Suki Game")
-    Suki.Window.SetMode(windowConfig.width or 1280, windowConfig.height or 720, windowConfig.options)
+    Window.SetTitle(windowConfig.title or "Suki Game")
+    Window.SetMode(windowConfig.width or 1280, windowConfig.height or 720, windowConfig.options)
 end
 
+-- Game module
+Game = {}
+
 -- customable engine loop
-function Suki.Run()
-    local args = Suki.Arguments.ParseGameArguments(arg);
+function Game.Run()
+    local args = Arguments.ParseGameArguments(arg);
 
     if args[1] == "--version" then
         print("Suki v1.0")
@@ -489,7 +485,7 @@ function Suki.Run()
         return nil 
     end
 
-    local workingFolder = Suki.FileSystem.GetWorkingDirectory();
+    local workingFolder = FileSystem.GetWorkingDirectory();
     local targetFolder  = args[1] or "Template"
     local fullPathTargetFolder = workingFolder .. "/" .. targetFolder
 
@@ -504,95 +500,84 @@ function Suki.Run()
     --    return fullPathTargetFolder;
     --end
 
-    if Suki.Load then 
-        Suki.Load(args, arg) 
+    if Game.Load then 
+        Game.Load(args, arg) 
     end
 
-    -- We don't want the first frame's dt to include time taken by Suki.Load.
-    if Suki.Timer then 
-        Suki.Timer.Step() 
-    end
+    -- We don't want the first frame's dt to include time taken by Load.
+    Time.Step()
  
     local dt = 0
     
 	-- Main loop time.
 	return function()
 		-- Process events.
-		if Suki.Event then
-			Suki.Event.Pump()
-			for name, a, b, c, d, e, f in Suki.Event.Poll() do
-				if name == "quit" then
-					if not Suki.Quit or not Suki.Quit() then
-						return a or 0
-					end
+        Event.Pump()
+        for name, a, b, c, d, e, f in Event.Poll() do
+            if name == "quit" then
+                if not Game.Quit or not Suki.Quit() then
+                    return a or 0
                 end
+            end
 
-                local handler
-                if name == "keypressed" then
-                    handler = Suki.OnKeyDown
-                elseif name == "keyreleased" then
-                    handler = Suki.OnKeyUp
-                elseif name == "textedited" then
-                    handler = Suki.OnTextEdited
-                elseif name == "textinput" then
-                    handler = Suki.OnTextInput
-                elseif name == "mousemoved" then
-                    handler = Suki.OnMouseMoved
-                elseif name == "mousepressed" then
-                    handler = Suki.OnMouseDown
-                elseif name == "mouserelease" then
-                    handler = Suki.OnMouseUp
-                elseif name == "wheelmoved" then
-                    handler = Suki.OnMouseWheel
-                elseif name == "touchmoved" then
-                    handler = Suki.OnTouchMoved
-                elseif name == "touchpressed" then
-                    handler = Suki.OnTouchBegan
-                elseif name == "touchreleased" then
-                    handler = Suki.OnTouchEnded
-                end
+            local handler
+            if name == "keypressed" then
+                handler = Game.OnKeyDown
+            elseif name == "keyreleased" then
+                handler = Game.OnKeyUp
+            elseif name == "textedited" then
+                handler = Game.OnTextEdited
+            elseif name == "textinput" then
+                handler = Game.OnTextInput
+            elseif name == "mousemoved" then
+                handler = Game.OnMouseMoved
+            elseif name == "mousepressed" then
+                handler = Game.OnMouseDown
+            elseif name == "mouserelease" then
+                handler = Game.OnMouseUp
+            elseif name == "wheelmoved" then
+                handler = Game.OnMouseWheel
+            elseif name == "touchmoved" then
+                handler = Game.OnTouchMoved
+            elseif name == "touchpressed" then
+                handler = Game.OnTouchBegan
+            elseif name == "touchreleased" then
+                handler = Game.OnTouchEnded
+            end
 
-                if handler then
-                    handler(a, b, c, d, e, f)
-                end
-			end
-		end
- 
-		-- Update dt, as we'll be passing it to update
-        if Suki.Timer then 
-            dt = Suki.Timer.Step() 
+            if handler then
+                handler(a, b, c, d, e, f)
+            end
         end
+ 
+		-- Update dt, as we'll be passing it to update\
+        dt = Time.Step() 
  
 		-- Call update and draw
-        if Suki.Update then 
-            Suki.Update(dt) 
-        end -- will pass 0 if Suki.Timer is disabled
+        if Game.Update then 
+            Game.Update(dt) 
+        end
  
-		if Suki.Graphics and Suki.Graphics.IsActive() then
-			Suki.Graphics.Origin()
-			Suki.Graphics.Clear(Suki.Graphics.GetBackgroundColor())
+		if Graphics.IsActive() then
+			Graphics.Origin()
+			Graphics.Clear(Graphics.GetBackgroundColor())
  
-            if Suki.Render then 
-                Suki.Render() 
+            if Game.Render then 
+                Game.Render() 
             end
  
-			Suki.Graphics.Present()
+			Graphics.Present()
 		end
  
-        if Suki.Timer then 
-            Suki.Timer.Sleep(0.001) 
-        end
+        Time.Sleep(0.001) 
 	end
 end
 
 -- application entry
 function love.run()
-    if Suki.Run then
-        return Suki.Run()
+    if Game.Run then
+        return Game.Run()
     end
 
     return nil
 end
-
--- export
-return Suki
