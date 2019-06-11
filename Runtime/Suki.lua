@@ -460,13 +460,30 @@ local physicsModule = {
 }
 Suki.Physics = CloneModule(love.physics, physicsModule)
 
+local function LoadConfig(targetPath)
+    local targetConfigFile = targetPath .. "/config.lua"
+    local config, error = pcall(function () return require(targetConfigFile) end)
+
+    -- Validate config
+    config = config or {}
+
+    -- Apply window config
+    local windowConfig = config.window or {}
+    Suki.Window.SetTitle(windowConfig.title or "Suki Game")
+    Suki.Window.SetMode(windowConfig.width or 1280, windowConfig.height or 720, windowConfig.options)
+end
+
 -- customable engine loop
 function Suki.Run()
     local args          = Suki.Arguments.ParseGameArguments(arg);
     local workingFolder = Suki.FileSystem.GetWorkingDirectory();
     local targetFolder  = args[1] or "Template"
-
     local fullPathTargetFolder = workingFolder .. "/" .. targetFolder
+
+    -- Load config file
+    LoadConfig(fullPathTargetFolder)
+
+    -- Load main file
     local targetMainFile = fullPathTargetFolder .. "/main.lua"
     pcall(function () dofile(targetMainFile) end)
 
