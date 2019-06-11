@@ -414,7 +414,7 @@ Suki.Window = CloneModule(love.window, windowModule)
 
 -- system module
 local systemModule = {
-    Vibrate               = "Vibrate",
+    Vibrate               = "vibrate",
     GetClipboardText      = "getClipboardText",
     GetOS                 = "getOS",
     GetPowerInfo          = "getPowerInfo",
@@ -478,7 +478,7 @@ end
 
 -- customable engine loop
 function Suki.Run()
-    local args          = Suki.Arguments.ParseGameArguments(arg);
+    local args = Suki.Arguments.ParseGameArguments(arg);
 
     if args[1] == "--version" then
         print("Suki v1.0")
