@@ -467,6 +467,9 @@ local function LoadConfig(targetPath)
     -- Validate config
     config = config or {}
 
+    Suki.FileSystem.SetIdentity(config.identity)
+    --Suki.FileSystem.
+
     -- Apply window config
     local windowConfig = config.window or {}
     Suki.Window.SetTitle(windowConfig.title or "Suki Game")
@@ -476,6 +479,13 @@ end
 -- customable engine loop
 function Suki.Run()
     local args          = Suki.Arguments.ParseGameArguments(arg);
+
+    if args[1] == "--version" then
+        print("Suki v1.0")
+
+        return nil 
+    end
+
     local workingFolder = Suki.FileSystem.GetWorkingDirectory();
     local targetFolder  = args[1] or "Template"
     local fullPathTargetFolder = workingFolder .. "/" .. targetFolder
