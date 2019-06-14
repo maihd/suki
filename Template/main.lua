@@ -1,3 +1,3 @@
 function Game.Render()
-    Graphics.Print("Hello world", 100, 100);
+    Graphics.Print("Suki Template: Hello world", 0, 0);
 end

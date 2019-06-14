@@ -457,12 +457,12 @@ Physics = CloneModule(love.physics, physicsModule)
 local function LoadConfig(targetPath)
     local config
 
-    local targetConfigFile = targetPath .. "/config.lua"
-    local temp = io.open(targetConfigFile)
+    local path = targetPath .. "/config.lua"
+    local temp = io.open(path)
     if temp then
         io.close(temp)
 
-        config = require(targetConfigFile)
+        config = dofile(path)
     end
 
     -- Validate config
@@ -507,10 +507,6 @@ function Game.Run()
 
         dofile(targetMainFile)
     end
-
-    --Suki.FileSystem.GetWorkingDirectory = function ()
-    --    return fullPathTargetFolder;
-    --end
 
     if Game.Load then 
         Game.Load(args, arg) 
