@@ -4,6 +4,8 @@
 
 require("Core.Table")
 require("Core.Function")
+require("Core.EventSignal")
+require("Core.EventEmitter")
 
 local function CloneModule(module, conversionDefines)
     local newModule = table.deepcopy(module)
@@ -505,7 +507,7 @@ function Game.Run()
     -- We don't want the first frame's dt to include time taken by Load.
     Time.Step()
  
-    local dt = 0
+    local deltaTime = 0
     
 	-- Main loop time.
 	return function()
@@ -549,11 +551,11 @@ function Game.Run()
         end
  
 		-- Update dt, as we'll be passing it to update\
-        dt = Time.Step() 
+        deltaTime = Time.Step() 
  
 		-- Call update and draw
         if Game.Update then 
-            Game.Update(dt) 
+            Game.Update(deltaTime)
         end
  
 		if Graphics.IsActive() then

@@ -1,4 +1,4 @@
-
+-- Deep copy table and its value
 function table.deepcopy(orig)
     local copy
     if type(orig) == "table" then
