@@ -455,8 +455,15 @@ local physicsModule = {
 Physics = CloneModule(love.physics, physicsModule)
 
 local function LoadConfig(targetPath)
+    local config
+
     local targetConfigFile = targetPath .. "/config.lua"
-    local config, error = pcall(function () return require(targetConfigFile) end)
+    local temp = io.open(targetConfigFile)
+    if temp then
+        io.close(temp)
+
+        config = require(targetConfigFile)
+    end
 
     -- Validate config
     config = config or {}
@@ -496,6 +503,8 @@ function Game.Run()
     local targetMainFile = fullPathTargetFolder .. "/main.lua"
     local temp = io.open(targetMainFile)
     if temp then
+        io.close(temp)
+
         dofile(targetMainFile)
     end
 
