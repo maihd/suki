@@ -494,7 +494,10 @@ function Game.Run()
 
     -- Load main file
     local targetMainFile = fullPathTargetFolder .. "/main.lua"
-    pcall(function () dofile(targetMainFile) end)
+    local temp = io.open(targetMainFile)
+    if temp then
+        dofile(targetMainFile)
+    end
 
     --Suki.FileSystem.GetWorkingDirectory = function ()
     --    return fullPathTargetFolder;
