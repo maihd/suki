@@ -6,6 +6,7 @@ require("Core.Table")
 require("Core.Function")
 require("Core.EventSignal")
 require("Core.EventEmitter")
+require("Core.Commander")
 
 local function CloneModule(module, conversionDefines)
     local newModule = table.deepcopy(module)
