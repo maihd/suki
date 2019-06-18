@@ -11,7 +11,7 @@ end
 
 function EventSignal:AddListenerOnce(listener)
     if type(listener) ~= "function" then
-        error("EventSignal::AddListener: listener is invalid")
+        error("EventSignal::AddListenerOnce: listener is invalid")
     end
 
     table.insert(self._onceListeners, listener)
@@ -23,9 +23,12 @@ function EventSignal:RemoveListener(listener)
 end
 
 function EventSignal:Raise(...)
+    local result, error
     for _, listener in ipairs(self._listeners) do
-        listener(...)
+        result, error = listener(...)
     end
+
+    return result, error
 end
 
 function EventSignal:Clear()
